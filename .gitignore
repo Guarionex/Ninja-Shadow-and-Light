@@ -1,34 +1,34 @@
 # =============== #
 # Unity generated #
 # =============== #
-[Tt]emp/
-[Oo]bj/
-[Bb]uild
-[Ll]ibrary/
-sysinfo.txt
-*.stackdump
+Ninja Shadow and Light/[Tt]emp/
+Ninja Shadow and Light/[Oo]bj/
+Ninja Shadow and Light/[Bb]uild
+Ninja Shadow and Light/[Ll]ibrary/
+Ninja Shadow and Light/sysinfo.txt
+
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
-[Ee]xported[Oo]bj/
+Ninja Shadow and Light/[Ee]xported[Oo]bj/
 .vs/
-/*.userprefs
-/*.csproj
-/*.pidb
-/*.suo
-/*.sln*
-/*.user
-/*.unityproj
-/*.booproj
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln*
+*.user
+*.unityproj
+*.booproj
  
 # ============ #
 # OS generated #
 # ============ #
-.DS_Store*
-._*
-.Spotlight-V100
-.Trashes
-Icon?
-ehthumbs.db
-[Tt]humbs.db
+Ninja Shadow and Light/.DS_Store*
+Ninja Shadow and Light/._*
+Ninja Shadow and Light/.Spotlight-V100
+Ninja Shadow and Light/.Trashes
+Ninja Shadow and Light/Icon?
+Ninja Shadow and Light/ehthumbs.db
+Ninja Shadow and Light/[Tt]humbs.db
