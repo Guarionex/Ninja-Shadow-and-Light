@@ -6,6 +6,7 @@ public class NinjaControllerScript : MonoBehaviour {
 
 	public float maxSpeed = 10f;
 	private bool facingRight = true;
+	public bool BlackNinja = true;
 
 	Animator anim;
 
@@ -14,6 +15,17 @@ public class NinjaControllerScript : MonoBehaviour {
 	float grounRadius = 0.2f;
 	public LayerMask whatIsGround;
 	public float jumpForce = 700f;
+
+	bool attack = false;
+	public bool hit = false;
+	public Transform sword;
+	float swordRadius = 1f;
+	public LayerMask whatIsPlayer;
+
+	public int lifes = 3;
+	int prevLife = 3;
+
+	public bool hitDirection = true;
 
 	// Use this for initialization
 	void Start () {
@@ -24,17 +36,25 @@ public class NinjaControllerScript : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
+		attack = Physics2D.OverlapCircle (sword.position, swordRadius, whatIsPlayer);
+
 		grounded = Physics2D.OverlapCircle (groundCheck.position, grounRadius, whatIsGround);
 		anim.SetBool ("Ground", grounded);
 
 		anim.SetFloat ("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
-
-
-		float move = Input.GetAxis ("Horizontal");
-
+		float move = 0f;
+		if (BlackNinja) 
+		{
+			move = Input.GetAxis ("Horizontal");
+		} else if (!BlackNinja) 
+		{
+			move = Input.GetAxis ("Horizontal2");
+		}
 		anim.SetFloat ("Speed", Mathf.Abs (move));
-
-		GetComponent<Rigidbody2D>().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
+		if (lifes > 0) 
+		{
+			GetComponent<Rigidbody2D> ().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);
+		}
 
 		if (move > 0 && !facingRight) {
 			Flip ();
@@ -42,14 +62,46 @@ public class NinjaControllerScript : MonoBehaviour {
 		{
 			Flip ();
 		}
+
+		if (prevLife != lifes) 
+		{
+			anim.SetTrigger("Hurt");
+			prevLife = lifes;
+			anim.SetInteger("Lifes", lifes);
+			if(hitDirection)
+			{
+				GetComponent<Rigidbody2D> ().velocity = new Vector2 (20 * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);
+			}
+			else if(!hitDirection)
+			{
+				GetComponent<Rigidbody2D> ().velocity = new Vector2 (-20 * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);
+			}
+
+		}
+		if (lifes <= 0)
+		{
+			anim.SetTrigger("Death");
+		}
 	}
 
 	void Update()
 	{
-		if (grounded && Input.GetKeyDown (KeyCode.Space)) 
+		if (lifes > 0) 
 		{
-			anim.SetBool("Ground", false);
-			GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
+			float jMove = 0f;
+			if (grounded && ((BlackNinja && Input.GetKeyDown (KeyCode.W)) || (!BlackNinja && Input.GetKeyDown (KeyCode.UpArrow)))) {
+
+				anim.SetBool ("Ground", false);
+				GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
+				
+			}
+
+			if (((BlackNinja && Input.GetKeyDown (KeyCode.Space)) || (!BlackNinja && Input.GetKeyDown (KeyCode.KeypadEnter)))) {
+				anim.SetTrigger ("Attack");
+				if (attack && !hit) {
+					hit = true;
+				}
+			}
 		}
 	}
 
