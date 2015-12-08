@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour {
 	NinjaControllerScript stats1;
 	NinjaControllerScript stats2;
 	BackgroundInverter backgroundInverter;
+	bool pause = false;
+	Rect pauseWindowRect = new Rect(0, 0, Screen.width, Screen.height);
+	Rect winWindowRect = new Rect(0, 0, Screen.width, Screen.height);
 
 	// Use this for initialization
 	void Start () {
@@ -23,28 +26,94 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-
-		hit1 = stats1.hit;
-		hit2 = stats2.hit;
-
-
-
-		if (hit1) 
+		if(Input.GetKeyDown(KeyCode.Escape))
 		{
-			stats2.lifes--;
-			stats1.hit = false;
-			backgroundInverter.flip = true;
-			if(player2.position.x > player1.position.x) stats2.hitDirection = true;
-			else if(player2.position.x < player1.position.x) stats2.hitDirection = false;
+			pauseToggle(!pause);
 
+			//Debug.Log("ESC button pressed, pause listener");
 		}
-		if (hit2) 
+
+		/*if(stats1.pause || stats2.pause)
 		{
-			stats1.lifes--;
-			stats2.hit = false;
-			backgroundInverter.flip = true;
-			if(player1.position.x > player2.position.x) stats1.hitDirection = true;
-			else if(player1.position.x < player2.position.x) stats1.hitDirection = false;
+			pause = true;
+		}*/
+
+
+
+			hit1 = stats1.hit;
+			hit2 = stats2.hit;
+
+			if (hit1) 
+			{
+				stats2.lifes--;
+				stats1.hit = false;
+				backgroundInverter.flip = true;
+				if(player2.position.x > player1.position.x) stats2.hitDirection = true;
+				else if(player2.position.x < player1.position.x) stats2.hitDirection = false;
+
+			}
+			if (hit2) 
+			{
+				stats1.lifes--;
+				stats2.hit = false;
+				backgroundInverter.flip = true;
+				if(player1.position.x > player2.position.x) stats1.hitDirection = true;
+				else if(player1.position.x < player2.position.x) stats1.hitDirection = false;
+			}
+		
+
+	}
+
+	void OnGUI()
+	{
+		if(pause)
+		{
+			pauseWindowRect = GUI.Window(0, pauseWindowRect, PauseWindow, "Pause Menu");
 		}
+		if(stats1.lifes <= 0 || stats2.lifes <= 0)
+		{
+			winWindowRect = GUI.Window(1, winWindowRect, WinWindow, (stats1.lifes <= 0) ? "White Ninja Wins" : "Black Ninja Wins");
+		}
+	}
+
+	void PauseWindow(int windowID) {
+		if (GUI.Button(new Rect(pauseWindowRect.center.x - 50, pauseWindowRect.center.y - 10, 100, 20), "Resume"))
+		{
+			pauseToggle(false);
+		}
+		if(GUI.Button(new Rect(pauseWindowRect.center.x - 50, pauseWindowRect.center.y + 20, 100, 20), "Main Screen"))
+		{
+			pauseToggle(false);
+			Application.LoadLevel (0);
+		}
+		if(GUI.Button(new Rect(pauseWindowRect.center.x - 50, pauseWindowRect.center.y + 50, 100, 20), "Restart"))
+		{
+			pauseToggle(false);
+			Application.LoadLevel(1);
+		}
+		
+	}
+
+	void WinWindow(int windowID)
+	{
+		GUI.Label(new Rect(winWindowRect.center.x - 50, winWindowRect.center.y - 40, 100, 20), (stats1.lifes <= 0) ? "White Ninja Wins" : "Black Ninja Wins");
+		if(GUI.Button(new Rect(winWindowRect.center.x - 50, winWindowRect.center.y - 10, 100, 20), "Rematch"))
+		{
+			Application.LoadLevel(1);
+		}
+		if(GUI.Button(new Rect(winWindowRect.center.x - 50, winWindowRect.center.y + 20, 100, 20), "Main Screen"))
+		{
+			Application.LoadLevel (0);
+		}
+	}
+
+	void pauseToggle(bool toPause)
+	{
+		pause = toPause;
+		if(pause) Time.timeScale = 0;
+		else Time.timeScale = 1;
+		
+		stats1.pause = pause;
+		stats2.pause = pause;
 	}
 }
