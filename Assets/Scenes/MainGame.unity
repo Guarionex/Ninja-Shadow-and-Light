@@ -178,7 +178,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 441718, guid: 7be96d51799dae14389f91caa51acd07, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11481492, guid: 7be96d51799dae14389f91caa51acd07, type: 2}
       propertyPath: BlackNinja
