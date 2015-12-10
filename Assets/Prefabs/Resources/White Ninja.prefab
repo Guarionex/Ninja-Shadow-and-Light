@@ -215,6 +215,7 @@ MonoBehaviour:
     m_Bits: 256
   lifes: 3
   hitDirection: 1
+  pause: 0
 --- !u!212 &21270230
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -5,10 +5,12 @@ public class GameManager : MonoBehaviour {
 
 	public Transform player1;
 	public Transform player2;
+	public Transform spawnLocation1;
+	public Transform spawnLocation2;
 	public Transform background;
-	bool hit1;
-	bool hit2;
-	NinjaControllerScript stats1;
+	bool hit1 = false;
+	bool hit2 = false;
+	public NinjaControllerScript stats1;
 	NinjaControllerScript stats2;
 	BackgroundInverter backgroundInverter;
 	bool pause = false;
@@ -17,7 +19,11 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		stats1 = player1.GetComponent<NinjaControllerScript> ();
+		if(player1 != null)
+		{
+			stats1 = player1.GetComponent<NinjaControllerScript> ();
+
+		}
 		stats2 = player2.GetComponent<NinjaControllerScript> ();
 		backgroundInverter = background.GetComponent < BackgroundInverter> ();
 
@@ -39,10 +45,11 @@ public class GameManager : MonoBehaviour {
 		}*/
 
 
-
+		if(player1 != null)
+		{
 			hit1 = stats1.hit;
 			hit2 = stats2.hit;
-
+		}
 			if (hit1) 
 			{
 				stats2.lifes--;
@@ -70,9 +77,12 @@ public class GameManager : MonoBehaviour {
 		{
 			pauseWindowRect = GUI.Window(0, pauseWindowRect, PauseWindow, "Pause Menu");
 		}
-		if(stats1.lifes <= 0 || stats2.lifes <= 0)
+		if(player1 != null)
 		{
-			winWindowRect = GUI.Window(1, winWindowRect, WinWindow, (stats1.lifes <= 0) ? "White Ninja Wins" : "Black Ninja Wins");
+			if(stats1.lifes <= 0 || stats2.lifes <= 0)
+			{
+				winWindowRect = GUI.Window(1, winWindowRect, WinWindow, (stats1.lifes <= 0) ? "White Ninja Wins" : "Black Ninja Wins");
+			}
 		}
 	}
 
@@ -89,7 +99,8 @@ public class GameManager : MonoBehaviour {
 		if(GUI.Button(new Rect(pauseWindowRect.center.x - 50, pauseWindowRect.center.y + 50, 100, 20), "Restart"))
 		{
 			pauseToggle(false);
-			Application.LoadLevel(1);
+			restart();
+			//Application.LoadLevel(1);
 		}
 		
 	}
@@ -99,7 +110,8 @@ public class GameManager : MonoBehaviour {
 		GUI.Label(new Rect(winWindowRect.center.x - 50, winWindowRect.center.y - 40, 100, 20), (stats1.lifes <= 0) ? "White Ninja Wins" : "Black Ninja Wins");
 		if(GUI.Button(new Rect(winWindowRect.center.x - 50, winWindowRect.center.y - 10, 100, 20), "Rematch"))
 		{
-			Application.LoadLevel(1);
+			restart();
+			//Application.LoadLevel(1);
 		}
 		if(GUI.Button(new Rect(winWindowRect.center.x - 50, winWindowRect.center.y + 20, 100, 20), "Main Screen"))
 		{
@@ -115,5 +127,13 @@ public class GameManager : MonoBehaviour {
 		
 		stats1.pause = pause;
 		stats2.pause = pause;
+	}
+
+	private void restart()
+	{
+		player1.transform.position = new Vector3(spawnLocation1.transform.position.x, spawnLocation1.transform.position.y, spawnLocation1.transform.position.z);
+		stats1.lifes = 3;
+		player2.transform.position = new Vector3(spawnLocation2.transform.position.x, spawnLocation2.transform.position.y, spawnLocation2.transform.position.z);
+		stats2.lifes = 3;
 	}
 }
