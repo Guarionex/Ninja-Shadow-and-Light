@@ -21,6 +21,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 		{
 			StartCoroutine("Alive");
 		}
+
 	}
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

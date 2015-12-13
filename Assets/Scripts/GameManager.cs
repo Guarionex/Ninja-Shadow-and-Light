@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
 	bool pause = false;
 	Rect pauseWindowRect = new Rect(0, 0, Screen.width, Screen.height);
 	Rect winWindowRect = new Rect(0, 0, Screen.width, Screen.height);
+	public int numberOfPlayers = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
 			pauseToggle(!pause);
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour {
 
 	void OnGUI()
 	{
+		GUI.Label(new Rect(0, 0, 500, 20), "Number of players: "+numberOfPlayers);
 		if(pause)
 		{
 			pauseWindowRect = GUI.Window(0, pauseWindowRect, PauseWindow, "Pause Menu");
