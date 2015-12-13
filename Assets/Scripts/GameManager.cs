@@ -29,6 +29,11 @@ public class GameManager : Photon.MonoBehaviour {
 		backgroundInverter = background.GetComponent < BackgroundInverter> ();
 
 	}
+
+	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+
+	}
 	
 	// Update is called once per frame
 	void Update () {
