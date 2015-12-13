@@ -19,6 +19,11 @@ public class NetworkManager : Photon.MonoBehaviour {
 
 	}
 
+	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+
+	}
+
 	void OnJoinedLobby()
 	{
 		RoomOptions roomOptions = new RoomOptions() { isVisible = false, maxPlayers = 2 };
