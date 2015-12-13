@@ -62,8 +62,8 @@ public class GameManager : Photon.MonoBehaviour {
 	{
 		while(stateMachine)
 		{
-			transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing); 
-			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lerpSmoothing);
+			//transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing); 
+			//transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lerpSmoothing);
 			
 			yield return null;
 		}
