@@ -19,7 +19,8 @@ public class GameManager : Photon.MonoBehaviour {
 	public int numberOfPlayers = 0;
 	private GameManager gM;
 	private bool stateMachine = true;
-	Transform networkBackGround;
+	string test =  "doesn't work";
+
 
 	// Use this for initialization
 	void Start () {
@@ -42,7 +43,7 @@ public class GameManager : Photon.MonoBehaviour {
 		{
 			Debug.Log("Their scene");
 			//StartCoroutine("Alive");
-			StartCoroutine("StateMachine");
+			//StartCoroutine("StateMachine");
 		}
 	}
 
@@ -51,13 +52,13 @@ public class GameManager : Photon.MonoBehaviour {
 		if(stream.isWriting)
 		{
 			//stream.SendNext(this);
-			stream.SendNext(background);
+			stream.SendNext("This works");
 
 		}
 		else
 		{
 			//gM = (GameManager)stream.ReceiveNext();
-			networkBackGround = (Transform) stream.ReceiveNext();
+			test = (string) stream.ReceiveNext();
 		}
 	}
 
@@ -67,7 +68,7 @@ public class GameManager : Photon.MonoBehaviour {
 		{
 			//transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing); 
 			//transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lerpSmoothing);
-			background = networkBackGround;
+
 			yield return null;
 		}
 	}
@@ -117,6 +118,7 @@ public class GameManager : Photon.MonoBehaviour {
 	void OnGUI()
 	{
 		GUI.Label(new Rect(0, 0, 500, 20), "Number of players: "+numberOfPlayers);
+		GUI.Label(new Rect(0, 40, 500, 20), test);
 		if(pause)
 		{
 			pauseWindowRect = GUI.Window(0, pauseWindowRect, PauseWindow, "Pause Menu");
