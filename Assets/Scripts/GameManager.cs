@@ -117,8 +117,8 @@ public class GameManager : Photon.MonoBehaviour {
 
 	void OnGUI()
 	{
-		GUI.Label(new Rect(0, 0, 500, 20), "Number of players: "+numberOfPlayers);
-		GUI.Label(new Rect(0, 40, 500, 20), test);
+		//GUI.Label(new Rect(0, 0, 500, 20), "Number of players: "+numberOfPlayers);
+		GUI.Label(new Rect(0, 40, 500, 20), "Test is: "+test);
 		if(pause)
 		{
 			pauseWindowRect = GUI.Window(0, pauseWindowRect, PauseWindow, "Pause Menu");
