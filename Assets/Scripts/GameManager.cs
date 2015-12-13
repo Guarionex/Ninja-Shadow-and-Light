@@ -17,6 +17,8 @@ public class GameManager : Photon.MonoBehaviour {
 	Rect pauseWindowRect = new Rect(0, 0, Screen.width, Screen.height);
 	Rect winWindowRect = new Rect(0, 0, Screen.width, Screen.height);
 	public int numberOfPlayers = 0;
+	private GameManager gM;
+	private bool stateMachine = true;
 
 	// Use this for initialization
 	void Start () {
@@ -28,11 +30,43 @@ public class GameManager : Photon.MonoBehaviour {
 		stats2 = player2.GetComponent<NinjaControllerScript> ();
 		backgroundInverter = background.GetComponent < BackgroundInverter> ();
 
+		if(photonView.isSceneView)
+		{
+			//myCamera = GameObject.Find("../My Camera");
+			//myCamera.SetActive(true);
+			//GetComponent<NinjaControllerScript>().enabled = true;
+			Debug.Log("My scene");
+		}
+		else 
+		{
+			Debug.Log("Their scene");
+			//StartCoroutine("Alive");
+		}
 	}
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
+		if(stream.isWriting)
+		{
+			stream.SendNext(this);
 
+		}
+		else
+		{
+			gM = (GameManager)stream.ReceiveNext();
+
+		}
+	}
+
+	IEnumerator StateMachine()
+	{
+		while(stateMachine)
+		{
+			transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing); 
+			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lerpSmoothing);
+			
+			yield return null;
+		}
 	}
 	
 	// Update is called once per frame
