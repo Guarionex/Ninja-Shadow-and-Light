@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Photon.MonoBehaviour {
 
 	public Transform player1;
 	public Transform player2;

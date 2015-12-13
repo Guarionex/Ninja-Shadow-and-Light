@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NetworkManager : Photon.MonoBehaviour {
+public class NetworkManager : MonoBehaviour {
 
 	const string VERSION = "v0.0.1";
 	public string roomName = "VVR";
@@ -19,10 +19,7 @@ public class NetworkManager : Photon.MonoBehaviour {
 
 	}
 
-	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-	{
 
-	}
 
 	void OnJoinedLobby()
 	{
