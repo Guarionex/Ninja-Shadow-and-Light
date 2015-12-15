@@ -180,6 +180,9 @@ public class NetworkManager : MonoBehaviour {
 			GameObject whiteNinja = PhotonNetwork.Instantiate (player2PrefabName, whiteSpawnPoint.position, whiteSpawnPoint.rotation, 0); 
 			player2 = whiteNinja.transform;
 			stats2 = player2.GetComponent<NinjaControllerScript> ();
+			GameObject blackNinja = GameObject.Find("Black Ninja(Clone)");
+			player1 = blackNinja.transform;
+			stats1 = player1.GetComponent<NinjaControllerScript>();
 		}
 
 
@@ -194,8 +197,14 @@ public class NetworkManager : MonoBehaviour {
 
 	void OnPhotonPlayerConnected(PhotonPlayer player)
 	{
-		Debug.Log("On Photon Player Connected: " + player);
-		
+		Debug.Log("On Photon Player Connected: " + player.ID);
+
+		if (player.ID == 2) {
+			GameObject whitenNinja = GameObject.Find("White Ninja(Clone)");
+			player2 = whitenNinja.transform;
+			stats2 = player2.GetComponent<NinjaControllerScript>();
+		}
+
 		if(PhotonNetwork.isMasterClient)
 		{
 			//TagPlayer(playerWhoIsIt);
