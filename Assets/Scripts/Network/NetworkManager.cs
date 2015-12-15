@@ -60,12 +60,7 @@ public class NetworkManager : MonoBehaviour {
 			pause = true;
 		}*/
 		
-		/*if (player1 != null) {
-			Debug.Log("Player 1 exist");
-		}*/
-		if (player2 != null) {
-			Debug.Log("Player 2 exist");
-		}
+
 		if(player1 != null && player2 != null)
 		{
 			Debug.Log("Players are not null");
@@ -177,11 +172,12 @@ public class NetworkManager : MonoBehaviour {
 			player1 = blackNinja.transform;
 			stats1 = player1.GetComponent<NinjaControllerScript> ();
 		} else if (PhotonNetwork.playerList.Length == 2) {
-			Debug.Log("I'm in 2");
+			//Debug.Log("I'm in 2");
 			GameObject whiteNinja = PhotonNetwork.Instantiate (player2PrefabName, whiteSpawnPoint.position, whiteSpawnPoint.rotation, 0); 
 			player2 = whiteNinja.transform;
 			stats2 = player2.GetComponent<NinjaControllerScript> ();
 			GameObject blackNinja = GameObject.Find("Black Ninja(Clone)");
+			if(blackNinja == null) Debug.Log("Is null");
 			player1 = blackNinja.transform;
 			stats1 = player1.GetComponent<NinjaControllerScript>();
 		}
@@ -217,14 +213,14 @@ public class NetworkManager : MonoBehaviour {
 	{
 		while(GameObject.Find("White Ninja(Clone)") == null)
 		{
-			Debug.Log("Haven't found it");
+			//Debug.Log("Haven't found it");
 			yield return null;
 		}
 		if (GameObject.Find ("White Ninja(Clone)") != null) {
 			GameObject whitenNinja = GameObject.Find("White Ninja(Clone)");
 			player2 = whitenNinja.transform;
 			stats2 = player2.GetComponent<NinjaControllerScript>();
-			Debug.Log("Found it");
+			//Debug.Log("Found it");
 			yield return null;
 		}
 	}
