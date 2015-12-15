@@ -176,10 +176,8 @@ public class NetworkManager : MonoBehaviour {
 			GameObject whiteNinja = PhotonNetwork.Instantiate (player2PrefabName, whiteSpawnPoint.position, whiteSpawnPoint.rotation, 0); 
 			player2 = whiteNinja.transform;
 			stats2 = player2.GetComponent<NinjaControllerScript> ();
-			GameObject blackNinja = GameObject.Find("Black Ninja(Clone)");
-			if(blackNinja == null) Debug.Log("Is null");
-			player1 = blackNinja.transform;
-			stats1 = player1.GetComponent<NinjaControllerScript>();
+
+			StartCoroutine(findSecondPlayer(1));
 		}
 
 
@@ -200,7 +198,7 @@ public class NetworkManager : MonoBehaviour {
 			//GameObject whitenNinja = GameObject.Find("White Ninja(Clone)");
 			//player2 = whitenNinja.transform;
 			//stats2 = player2.GetComponent<NinjaControllerScript>();
-			StartCoroutine("findSecondPlayer");
+			StartCoroutine(findSecondPlayer(2));
 		}
 
 		if(PhotonNetwork.isMasterClient)
@@ -209,19 +207,32 @@ public class NetworkManager : MonoBehaviour {
 		}
 	}
 
-	IEnumerator findSecondPlayer()
+	IEnumerator findSecondPlayer(int playerNumber)
 	{
-		while(GameObject.Find("White Ninja(Clone)") == null)
-		{
-			//Debug.Log("Haven't found it");
-			yield return null;
-		}
-		if (GameObject.Find ("White Ninja(Clone)") != null) {
-			GameObject whitenNinja = GameObject.Find("White Ninja(Clone)");
-			player2 = whitenNinja.transform;
-			stats2 = player2.GetComponent<NinjaControllerScript>();
-			//Debug.Log("Found it");
-			yield return null;
+		if (playerNumber == 1) {
+			while (GameObject.Find("Black Ninja(Clone)") == null) {
+				//Debug.Log("Haven't found it");
+				yield return null;
+			}
+			if (GameObject.Find ("Black Ninja(Clone)") != null) {
+				GameObject blackNinja = GameObject.Find ("Black Ninja(Clone)");
+				player1 = blackNinja.transform;
+				stats1 = player1.GetComponent<NinjaControllerScript> ();
+				//Debug.Log("Found it");
+				yield return null;
+			}
+		} else if (playerNumber == 2) {
+			while (GameObject.Find("White Ninja(Clone)") == null) {
+				//Debug.Log("Haven't found it");
+				yield return null;
+			}
+			if (GameObject.Find ("White Ninja(Clone)") != null) {
+				GameObject whitenNinja = GameObject.Find ("White Ninja(Clone)");
+				player2 = whitenNinja.transform;
+				stats2 = player2.GetComponent<NinjaControllerScript> ();
+				//Debug.Log("Found it");
+				yield return null;
+			}
 		}
 	}
 	
