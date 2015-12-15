@@ -2351,7 +2351,6 @@ GameObject:
   - 4: {fileID: 2063185947}
   - 114: {fileID: 2063185946}
   - 114: {fileID: 2063185949}
-  - 114: {fileID: 2063185948}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -2365,7 +2364,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2063185945}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86a90b2f980f94b4394d5b09b230ef6b, type: 3}
   m_Name: 
@@ -2376,7 +2375,6 @@ MonoBehaviour:
   spawnLocation2: {fileID: 913149130}
   background: {fileID: 1205910882}
   stats1: {fileID: 0}
-  numberOfPlayers: 0
 --- !u!4 &2063185947
 Transform:
   m_ObjectHideFlags: 0
@@ -2389,31 +2387,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!114 &2063185948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2063185945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 3
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 2063185946}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
-  isRuntimeInstantiated: 0
 --- !u!114 &2063185949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2427,5 +2400,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomName: VVR
   playerPrefabName: Black Ninja
+  player2PrefabName: White Ninja
   blackSpawnPoint: {fileID: 928239729}
   whiteSpawnPoint: {fileID: 913149130}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+  spawnLocation1: {fileID: 928239729}
+  spawnLocation2: {fileID: 913149130}
+  background: {fileID: 1205910882}
+  stats1: {fileID: 0}
