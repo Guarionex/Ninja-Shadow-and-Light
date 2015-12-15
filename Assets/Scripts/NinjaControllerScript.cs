@@ -135,11 +135,11 @@ public class NinjaControllerScript : MonoBehaviour {
 	public void swingSword()
 	{
 		Debug.Log ("Made it to sword method");
-		if (isSwordSwing) {
+		//if (isSwordSwing) {
 			Debug.Log("Swinging Sword");
 			anim.SetTrigger ("Attack");
 			//isSwordSwing = false;
-		}
+		//
 	}
 
 	public void notGrounded()
