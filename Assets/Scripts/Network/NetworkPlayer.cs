@@ -22,6 +22,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 		}
 		else 
 		{
+			controller = GetComponent<NinjaControllerScript>();
 			StartCoroutine("Alive");
 		}
 
