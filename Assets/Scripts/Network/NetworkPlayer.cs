@@ -29,13 +29,13 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
-		if(stream.isWriting)
+		if(stream.isWriting && controller != null)
 		{
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
 			stream.SendNext(controller.move);
 		}
-		else
+		else if(controller !=null)
 		{
 			position = (Vector3)stream.ReceiveNext();
 			rotation = (Quaternion)stream.ReceiveNext();
