@@ -57,16 +57,8 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing); 
 			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lerpSmoothing);
 			controller.isMovingHorizontalPhoton = moving;
-			if(attacking)
-			{
-				attacking = false;
-				controller.swingSword();
-			}
-			if(jumping) 
-			{
-				jumping = false;
-				controller.notGrounded();
-			}
+			if(attacking) controller.swingSword();
+			if(jumping) controller.notGrounded();
 			yield return null;
 		}
 	}

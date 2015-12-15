@@ -133,13 +133,17 @@ public class NinjaControllerScript : MonoBehaviour {
 
 	public void swingSword()
 	{
-		anim.SetTrigger ("Attack");
-		isSwordSwing = false;
+		if (isSwordSwing) {
+			anim.SetTrigger ("Attack");
+			isSwordSwing = false;
+		}
 	}
 
 	public void notGrounded()
 	{
-		anim.SetBool ("Ground", false);
-		isJumping = false;
+		if (isJumping) {
+			anim.SetBool ("Ground", false);
+			isJumping = false;
+		}
 	}
 }
