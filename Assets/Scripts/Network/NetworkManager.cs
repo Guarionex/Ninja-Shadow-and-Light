@@ -61,7 +61,7 @@ public class NetworkManager : MonoBehaviour {
 		}*/
 		
 		
-		if(player1 != null)
+		if(player1 != null && player2 != null)
 		{
 			hit1 = stats1.hit;
 			hit2 = stats2.hit;
