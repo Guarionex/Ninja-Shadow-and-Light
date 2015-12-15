@@ -134,6 +134,7 @@ public class NinjaControllerScript : MonoBehaviour {
 	public void swingSword()
 	{
 		if (isSwordSwing) {
+			Debug.Log("Swinging Sword");
 			anim.SetTrigger ("Attack");
 			isSwordSwing = false;
 		}
