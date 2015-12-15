@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : Photon.MonoBehaviour {
+public class GameManager : MonoBehaviour {
 
 	public Transform player1;
 	public Transform player2;
@@ -16,10 +16,7 @@ public class GameManager : Photon.MonoBehaviour {
 	bool pause = false;
 	Rect pauseWindowRect = new Rect(0, 0, Screen.width, Screen.height);
 	Rect winWindowRect = new Rect(0, 0, Screen.width, Screen.height);
-	public int numberOfPlayers = 0;
-	private GameManager gM;
-	private bool stateMachine = true;
-	string test =  "doesn't work";
+
 
 
 	// Use this for initialization
@@ -32,46 +29,11 @@ public class GameManager : Photon.MonoBehaviour {
 		stats2 = player2.GetComponent<NinjaControllerScript> ();
 		backgroundInverter = background.GetComponent < BackgroundInverter> ();
 
-		if(photonView.isSceneView)
-		{
-			//myCamera = GameObject.Find("../My Camera");
-			//myCamera.SetActive(true);
-			//GetComponent<NinjaControllerScript>().enabled = true;
-			Debug.Log("My scene");
-		}
-		else 
-		{
-			Debug.Log("Their scene");
-			//StartCoroutine("Alive");
-			//StartCoroutine("StateMachine");
-		}
+
 	}
 
-	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-	{
-		if(stream.isWriting)
-		{
-			//stream.SendNext(this);
-			stream.SendNext("This works");
 
-		}
-		else
-		{
-			//gM = (GameManager)stream.ReceiveNext();
-			test = (string) stream.ReceiveNext();
-		}
-	}
 
-	IEnumerator StateMachine()
-	{
-		while(stateMachine)
-		{
-			//transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing); 
-			//transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lerpSmoothing);
-
-			yield return null;
-		}
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -117,8 +79,7 @@ public class GameManager : Photon.MonoBehaviour {
 
 	void OnGUI()
 	{
-		//GUI.Label(new Rect(0, 0, 500, 20), "Number of players: "+numberOfPlayers);
-		GUI.Label(new Rect(0, 40, 500, 20), "Test is: "+test);
+
 		if(pause)
 		{
 			pauseWindowRect = GUI.Window(0, pauseWindowRect, PauseWindow, "Pause Menu");
