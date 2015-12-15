@@ -50,7 +50,7 @@ public class NinjaControllerScript : MonoBehaviour {
 			anim.SetBool ("Ground", grounded);
 
 			anim.SetFloat ("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
-
+			move = 0f;
 			if (isControllable) 
 			{
 				move = Input.GetAxis ("Horizontal");
