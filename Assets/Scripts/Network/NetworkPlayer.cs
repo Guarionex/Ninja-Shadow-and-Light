@@ -33,13 +33,13 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 		{
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
-			stream.SendNext(controller.move);
+			//stream.SendNext(controller.move);
 		}
 		else if(controller !=null)
 		{
 			position = (Vector3)stream.ReceiveNext();
 			rotation = (Quaternion)stream.ReceiveNext();
-			move = (float) stream.ReceiveNext();
+			//move = (float) stream.ReceiveNext();
 		}
 	}
 
@@ -49,7 +49,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 		{
 			transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing); 
 			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lerpSmoothing);
-			controller.move = move;
+			//controller.move = move;
 			yield return null;
 		}
 	}
