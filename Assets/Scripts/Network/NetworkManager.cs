@@ -221,6 +221,9 @@ public class NetworkManager : MonoBehaviour {
 			yield return null;
 		}
 		if (GameObject.Find ("White Ninja(Clone)") != null) {
+			GameObject whitenNinja = GameObject.Find("White Ninja(Clone)");
+			player2 = whitenNinja.transform;
+			stats2 = player2.GetComponent<NinjaControllerScript>();
 			Debug.Log("Found it");
 			yield return null;
 		}
