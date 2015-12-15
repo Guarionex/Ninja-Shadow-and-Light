@@ -9,7 +9,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 	Quaternion rotation;
 	float lerpSmoothing = 10f;
 	NinjaControllerScript controller;
-	float move = 0f;
+	bool moving = false;
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +18,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			//myCamera = GameObject.Find("../My Camera");
 			//myCamera.SetActive(true);
 			controller = GetComponent<NinjaControllerScript>();
-			controller.enabled = true;
+			//controller.enabled = true;
 		}
 		else 
 		{
@@ -34,13 +34,13 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 		{
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
-			//stream.SendNext(controller.move);
+			stream.SendNext(controller.isMovingHorizontal);
 		}
 		else if(controller !=null)
 		{
 			position = (Vector3)stream.ReceiveNext();
 			rotation = (Quaternion)stream.ReceiveNext();
-			//move = (float) stream.ReceiveNext();
+			moving = (bool) stream.ReceiveNext();
 		}
 	}
 
@@ -50,7 +50,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 		{
 			transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing); 
 			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lerpSmoothing);
-			//controller.move = move;
+			controller.isMovingHorizontalPhoton = moving;
 			yield return null;
 		}
 	}

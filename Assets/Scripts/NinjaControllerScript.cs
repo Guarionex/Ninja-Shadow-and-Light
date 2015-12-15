@@ -30,7 +30,8 @@ public class NinjaControllerScript : MonoBehaviour {
 	public bool pause = false;
 
 	public bool isControllable = false;
-	public float move = 0f;
+	public bool isMovingHorizontal = false;
+	public bool isMovingHorizontalPhoton = false;
 
 	// Use this for initialization
 	void Start () {
@@ -50,12 +51,14 @@ public class NinjaControllerScript : MonoBehaviour {
 			anim.SetBool ("Ground", grounded);
 
 			anim.SetFloat ("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
-			move = 0f;
+			float move = 0f;
 			if (isControllable) 
 			{
 				move = Input.GetAxis ("Horizontal");
 			}
-			anim.SetFloat ("Speed", Mathf.Abs (move));
+			if(move != 0) isMovingHorizontal = true;
+			else isMovingHorizontal = false;
+			anim.SetFloat ("Speed", isMovingHorizontal || isMovingHorizontalPhoton ? 1 : 0);
 			if (lifes > 0) 
 			{
 				GetComponent<Rigidbody2D> ().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);
