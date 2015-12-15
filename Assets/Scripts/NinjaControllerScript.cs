@@ -30,6 +30,7 @@ public class NinjaControllerScript : MonoBehaviour {
 	public bool pause = false;
 
 	public bool isControllable = false;
+	public float move = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -49,13 +50,13 @@ public class NinjaControllerScript : MonoBehaviour {
 			anim.SetBool ("Ground", grounded);
 
 			anim.SetFloat ("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
-			float move = 0f;
+
 			if (isControllable) 
 			{
 				move = Input.GetAxis ("Horizontal");
 			}
 			anim.SetFloat ("Speed", Mathf.Abs (move));
-			if (lifes > 0) 
+			if (lifes > 0 && isControllable) 
 			{
 				GetComponent<Rigidbody2D> ().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);
 			}
@@ -97,7 +98,7 @@ public class NinjaControllerScript : MonoBehaviour {
 		{
 			if (lifes > 0) 
 			{
-				float jMove = 0f;
+
 				if (grounded && Input.GetKeyDown (KeyCode.W) && isControllable) {
 
 					anim.SetBool ("Ground", false);
