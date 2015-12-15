@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  BlackNinja: 1
+  BlackNinja: 0
   groundCheck: {fileID: 440130}
   whatIsGround:
     serializedVersion: 2
@@ -297,6 +297,10 @@ Prefab:
       objectReference: {fileID: 11480590}
     - target: {fileID: 0}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BlackNinja
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

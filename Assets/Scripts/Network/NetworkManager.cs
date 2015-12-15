@@ -63,27 +63,29 @@ public class NetworkManager : MonoBehaviour {
 
 		if(player1 != null && player2 != null)
 		{
-			Debug.Log("Players are not null");
+
 			hit1 = stats1.hit;
 			hit2 = stats2.hit;
 		}
 		if (hit1) 
 		{
 			Debug.Log("Player 1 got a hit");
-			stats2.lifes--;
+			/*stats2.lifes--;
 			stats1.hit = false;
 			backgroundInverter.flip = true;
 			if(player2.position.x > player1.position.x) stats2.hitDirection = true;
-			else if(player2.position.x < player1.position.x) stats2.hitDirection = false;
+			else if(player2.position.x < player1.position.x) stats2.hitDirection = false;*/
+			scenePhotonView.RPC("loseHealth", PhotonTargets.All, 2);
 			
 		}
 		if (hit2) 
 		{
-			stats1.lifes--;
+			/*stats1.lifes--;
 			stats2.hit = false;
 			backgroundInverter.flip = true;
 			if(player1.position.x > player2.position.x) stats1.hitDirection = true;
-			else if(player1.position.x < player2.position.x) stats1.hitDirection = false;
+			else if(player1.position.x < player2.position.x) stats1.hitDirection = false;*/
+			scenePhotonView.RPC("loseHealth", PhotonTargets.All, 1);
 		}
 		
 		
@@ -248,6 +250,25 @@ public class NetworkManager : MonoBehaviour {
 		playerWhoIsIt = playerID;
 		Debug.Log("TaggedPlayer: " + playerID);
 	}*/
+	[PunRPC]
+	public void loseHealth(int playerID)
+	{
+		if (playerID == 2) {
+			stats2.lifes--;
+			stats1.hit = false;
+			backgroundInverter.flip = true;
+			if (player2.position.x > player1.position.x)
+				stats2.hitDirection = true;
+			else if (player2.position.x < player1.position.x)
+				stats2.hitDirection = false;
+		} else if (playerID == 1) {
+			stats1.lifes--;
+			stats2.hit = false;
+			backgroundInverter.flip = true;
+			if(player1.position.x > player2.position.x) stats1.hitDirection = true;
+			else if(player1.position.x < player2.position.x) stats1.hitDirection = false;
+		}
+	}
 
 	public void OnPhotonPlayerDisconnected(PhotonPlayer player)
 	{
