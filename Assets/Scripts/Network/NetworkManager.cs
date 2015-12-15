@@ -177,6 +177,7 @@ public class NetworkManager : MonoBehaviour {
 			player1 = blackNinja.transform;
 			stats1 = player1.GetComponent<NinjaControllerScript> ();
 		} else if (PhotonNetwork.playerList.Length == 2) {
+			Debug.Log("I'm in 2");
 			GameObject whiteNinja = PhotonNetwork.Instantiate (player2PrefabName, whiteSpawnPoint.position, whiteSpawnPoint.rotation, 0); 
 			player2 = whiteNinja.transform;
 			stats2 = player2.GetComponent<NinjaControllerScript> ();
@@ -200,14 +201,28 @@ public class NetworkManager : MonoBehaviour {
 		Debug.Log("On Photon Player Connected: " + player.ID);
 
 		if (player.ID == 2) {
-			GameObject whitenNinja = GameObject.Find("White Ninja(Clone)");
-			player2 = whitenNinja.transform;
-			stats2 = player2.GetComponent<NinjaControllerScript>();
+			//GameObject whitenNinja = GameObject.Find("White Ninja(Clone)");
+			//player2 = whitenNinja.transform;
+			//stats2 = player2.GetComponent<NinjaControllerScript>();
+			StartCoroutine("findSeconPlayer");
 		}
 
 		if(PhotonNetwork.isMasterClient)
 		{
 			//TagPlayer(playerWhoIsIt);
+		}
+	}
+
+	IEnumerator findSecondPlayer()
+	{
+		while(GameObject.Find("White Ninja(Clone)") == null)
+		{
+			Debug.Log("Haven't found it");
+			yield return null;
+		}
+		if (GameObject.Find ("White Ninja(Clone)") != null) {
+			Debug.Log("Found it");
+			yield return null;
 		}
 	}
 	
