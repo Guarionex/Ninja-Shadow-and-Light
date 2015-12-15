@@ -173,12 +173,13 @@ public class NetworkManager : MonoBehaviour {
 			GameObject blackNinja = PhotonNetwork.Instantiate (playerPrefabName, blackSpawnPoint.position, blackSpawnPoint.rotation, 0); 
 			player1 = blackNinja.transform;
 			stats1 = player1.GetComponent<NinjaControllerScript> ();
+			stats1.isControllable = true;
 		} else if (PhotonNetwork.playerList.Length == 2) {
 			//Debug.Log("I'm in 2");
 			GameObject whiteNinja = PhotonNetwork.Instantiate (player2PrefabName, whiteSpawnPoint.position, whiteSpawnPoint.rotation, 0); 
 			player2 = whiteNinja.transform;
 			stats2 = player2.GetComponent<NinjaControllerScript> ();
-
+			stats2.isControllable = true;
 			StartCoroutine(findSecondPlayer(1));
 		}
 

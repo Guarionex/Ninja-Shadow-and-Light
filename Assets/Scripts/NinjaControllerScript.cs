@@ -6,7 +6,7 @@ public class NinjaControllerScript : MonoBehaviour {
 
 	public float maxSpeed = 10f;
 	private bool facingRight = true;
-	public bool BlackNinja = true;
+	//public bool BlackNinja = true;
 
 	Animator anim;
 
@@ -29,6 +29,8 @@ public class NinjaControllerScript : MonoBehaviour {
 
 	public bool pause = false;
 
+	public bool isControllable = false;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -48,12 +50,9 @@ public class NinjaControllerScript : MonoBehaviour {
 
 			anim.SetFloat ("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
 			float move = 0f;
-			if (BlackNinja) 
+			if (isControllable) 
 			{
 				move = Input.GetAxis ("Horizontal");
-			} else if (!BlackNinja) 
-			{
-				move = Input.GetAxis ("Horizontal2");
 			}
 			anim.SetFloat ("Speed", Mathf.Abs (move));
 			if (lifes > 0) 
@@ -99,14 +98,14 @@ public class NinjaControllerScript : MonoBehaviour {
 			if (lifes > 0) 
 			{
 				float jMove = 0f;
-				if (grounded && ((BlackNinja && Input.GetKeyDown (KeyCode.W)) || (!BlackNinja && Input.GetKeyDown (KeyCode.UpArrow)))) {
+				if (grounded && Input.GetKeyDown (KeyCode.W) && isControllable) {
 
 					anim.SetBool ("Ground", false);
 					GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
 					
 				}
 
-				if (((BlackNinja && Input.GetKeyDown (KeyCode.Space)) || (!BlackNinja && Input.GetKeyDown (KeyCode.KeypadEnter)))) {
+				if (Input.GetKeyDown (KeyCode.Space) && isControllable) {
 					anim.SetTrigger ("Attack");
 					if (attack && !hit) {
 						hit = true;

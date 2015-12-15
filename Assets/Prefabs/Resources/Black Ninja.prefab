@@ -234,13 +234,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 136706}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59abce729ce6edb4192023f1b6884bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  BlackNinja: 1
   groundCheck: {fileID: 432854}
   whatIsGround:
     serializedVersion: 2
@@ -254,6 +253,7 @@ MonoBehaviour:
   lifes: 3
   hitDirection: 0
   pause: 0
+  isControllable: 0
 --- !u!212 &21206478
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -301,7 +301,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
