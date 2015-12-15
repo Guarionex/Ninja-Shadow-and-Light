@@ -106,14 +106,14 @@ public class NinjaControllerScript : MonoBehaviour {
 			{
 
 				if (grounded && Input.GetKeyDown (KeyCode.W) && isControllable) {
-					//anim.SetBool ("Ground", false);
+					anim.SetBool ("Ground", false);
 					isJumping = true;
 					GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
 					
 				}
 
 				if (Input.GetKeyDown (KeyCode.Space) && isControllable) {
-					//anim.SetTrigger ("Attack");
+					anim.SetTrigger ("Attack");
 					isSwordSwing = true;
 					if (attack && !hit) {
 						hit = true;
