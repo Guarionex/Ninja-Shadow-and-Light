@@ -32,6 +32,8 @@ public class NinjaControllerScript : MonoBehaviour {
 	public bool isControllable = false;
 	public bool isMovingHorizontal = false;
 	public bool isMovingHorizontalPhoton = false;
+	public bool isSwordSwing = false;
+	public bool isJumping = false;
 
 	// Use this for initialization
 	void Start () {
@@ -89,6 +91,16 @@ public class NinjaControllerScript : MonoBehaviour {
 			if (lifes <= 0)
 			{
 				anim.SetTrigger("Death");
+			}
+			if(isSwordSwing)
+			{
+				anim.SetTrigger ("Attack");
+				isSwordSwing = false;
+			}
+			if(isJumping)
+			{
+				anim.SetBool ("Ground", false);
+				isJumping = false;
 			}
 		}
 	}
