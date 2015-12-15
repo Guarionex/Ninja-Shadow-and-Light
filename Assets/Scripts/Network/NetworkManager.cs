@@ -81,6 +81,14 @@ public class NetworkManager : MonoBehaviour {
 			{
 				scenePhotonView.RPC("notOnGroundAnimation", PhotonTargets.All, 2);
 			}
+			if(stats1.toFlip)
+			{
+				scenePhotonView.RPC("flipNinja", PhotonTargets.All, 1);
+			}
+			if(stats2.toFlip)
+			{
+				scenePhotonView.RPC("flipNinja", PhotonTargets.All, 2);
+			}
 		}
 		if (hit1) 
 		{
@@ -306,6 +314,18 @@ public class NetworkManager : MonoBehaviour {
 		} else if (playerID == 2) {
 			stats2.notGrounded();
 			stats2.isJumping = false;
+		}
+	}
+
+	[PunRPC]
+	public void flipNinja(int playerID)
+	{
+		if (playerID == 1) {
+			stats1.Flip();
+			stats1.toFlip = false;
+		} else if (playerID == 2) {
+			stats2.Flip();
+			stats2.toFlip = false;
 		}
 	}
 

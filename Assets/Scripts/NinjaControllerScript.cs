@@ -34,6 +34,7 @@ public class NinjaControllerScript : MonoBehaviour {
 	public bool isMovingHorizontalPhoton = false;
 	public bool isSwordSwing = false;
 	public bool isJumping = false;
+	public bool toFlip = false;
 
 	// Use this for initialization
 	void Start () {
@@ -66,11 +67,13 @@ public class NinjaControllerScript : MonoBehaviour {
 				GetComponent<Rigidbody2D> ().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);
 			}
 
-			if ((move > 0 && !facingRight) || (isMovingHorizontalPhoton && !facingRight)) {
-				Flip ();
-			} else if ((move < 0 && facingRight) || (isMovingHorizontalPhoton && facingRight))
+			if (move > 0 && !facingRight) {
+				//Flip ();
+				toFlip = true;
+			} else if (move < 0 && facingRight)
 			{
-				Flip ();
+				//Flip ();
+				toFlip = true;
 			}
 
 			if (prevLife != lifes) 
@@ -123,7 +126,7 @@ public class NinjaControllerScript : MonoBehaviour {
 		}
 	}
 
-	void Flip()
+	public void Flip()
 	{
 		facingRight = !facingRight;
 		Vector3 theScale = transform.localScale;
