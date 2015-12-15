@@ -279,7 +279,9 @@ public class NetworkManager : MonoBehaviour {
 	public void swordAnimation(int playerID)
 	{
 		if (playerID == 1) {
+			Debug.Log("In RPC");
 			stats1.swingSword();
+			stats1.isSwordSwing = false;
 		} else if (playerID == 2) {
 			stats2.swingSword();
 		}
