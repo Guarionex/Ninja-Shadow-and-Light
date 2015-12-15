@@ -36,4 +36,10 @@ MonoBehaviour:
   - RequestForPickupTimes
   - TaggedPlayer
   - loseHealth
+  - swordAnimation
+  - notOnGroundAnimation
+  - flipNinja
+  - restart
+  - pauseToggle
+  - loadMain
   DisableAutoOpenWizard: 1

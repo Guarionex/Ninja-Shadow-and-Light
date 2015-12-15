@@ -50,7 +50,8 @@ public class NetworkManager : MonoBehaviour {
 		
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
-			pauseToggle(!pause);
+			//pauseToggle(!pause);
+			scenePhotonView.RPC("pauseToggle", PhotonTargets.All, !pause);
 			
 			//Debug.Log("ESC button pressed, pause listener");
 		}
@@ -133,17 +134,23 @@ public class NetworkManager : MonoBehaviour {
 	void PauseWindow(int windowID) {
 		if (GUI.Button(new Rect(pauseWindowRect.center.x - 50, pauseWindowRect.center.y - 10, 100, 20), "Resume"))
 		{
-			pauseToggle(false);
+			scenePhotonView.RPC("pauseToggle", PhotonTargets.All, false);
+			//pauseToggle(false);
 		}
 		if(GUI.Button(new Rect(pauseWindowRect.center.x - 50, pauseWindowRect.center.y + 20, 100, 20), "Main Screen"))
 		{
-			pauseToggle(false);
-			Application.LoadLevel (0);
+			scenePhotonView.RPC("pauseToggle", PhotonTargets.All, false);
+			//scenePhotonView.RPC("loadMain", PhotonTargets.All);
+			loadMain();
+			//pauseToggle(false);
+			//Application.LoadLevel (0);
 		}
 		if(GUI.Button(new Rect(pauseWindowRect.center.x - 50, pauseWindowRect.center.y + 50, 100, 20), "Restart"))
 		{
-			pauseToggle(false);
-			restart();
+			scenePhotonView.RPC("pauseToggle", PhotonTargets.All, false);
+			//pauseToggle(false);
+			scenePhotonView.RPC("restart", PhotonTargets.All);
+			//restart();
 			//Application.LoadLevel(1);
 		}
 		
@@ -154,16 +161,20 @@ public class NetworkManager : MonoBehaviour {
 		GUI.Label(new Rect(winWindowRect.center.x - 50, winWindowRect.center.y - 40, 100, 20), (stats1.lifes <= 0) ? "White Ninja Wins" : "Black Ninja Wins");
 		if(GUI.Button(new Rect(winWindowRect.center.x - 50, winWindowRect.center.y - 10, 100, 20), "Rematch"))
 		{
-			restart();
+			//restart();
+			scenePhotonView.RPC("restart", PhotonTargets.All);
 			//Application.LoadLevel(1);
 		}
 		if(GUI.Button(new Rect(winWindowRect.center.x - 50, winWindowRect.center.y + 20, 100, 20), "Main Screen"))
 		{
-			Application.LoadLevel (0);
+			//scenePhotonView.RPC("loadMain", PhotonTargets.All);
+			loadMain();
+			//Application.LoadLevel (0);
 		}
 	}
-	
-	void pauseToggle(bool toPause)
+
+	[PunRPC]
+	public void pauseToggle(bool toPause)
 	{
 		pause = toPause;
 		if(pause) Time.timeScale = 0;
@@ -172,8 +183,8 @@ public class NetworkManager : MonoBehaviour {
 		stats1.pause = pause;
 		stats2.pause = pause;
 	}
-	
-	private void restart()
+	[PunRPC]
+	public void restart()
 	{
 		player1.transform.position = new Vector3(spawnLocation1.transform.position.x, spawnLocation1.transform.position.y, spawnLocation1.transform.position.z);
 		stats1.lifes = 3;
@@ -181,11 +192,20 @@ public class NetworkManager : MonoBehaviour {
 		stats2.lifes = 3;
 	}
 
+	[PunRPC]
+	public void loadMain()
+	{
+		PhotonNetwork.Disconnect();
+		if(PhotonNetwork.isMasterClient) Debug.Log("I click main menu");
+		Debug.Log("I click main menu not master");
+		Application.LoadLevel (0);
+	}
+
 
 
 	void OnJoinedLobby()
 	{
-		RoomOptions roomOptions = new RoomOptions() { isVisible = false, maxPlayers = 2 };
+		RoomOptions roomOptions = new RoomOptions() { isVisible = false, maxPlayers = 3 };
 		PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
 	}
 
@@ -332,7 +352,14 @@ public class NetworkManager : MonoBehaviour {
 	public void OnPhotonPlayerDisconnected(PhotonPlayer player)
 	{
 		Debug.Log("OnPhotonPlayerDisconnected: " + player);
-		
+
+		PhotonNetwork.RemoveRPCs(player);
+		PhotonNetwork.DestroyPlayerObjects(player);
+		Debug.Log ("Number of players in room: " + PhotonNetwork.playerList.Length);
+		//scenePhotonView.RPC("restart", PhotonTargets.All);
+		loadMain();
+
+
 		if (PhotonNetwork.isMasterClient)
 		{
 			/*if (player.ID == playerWhoIsIt)
