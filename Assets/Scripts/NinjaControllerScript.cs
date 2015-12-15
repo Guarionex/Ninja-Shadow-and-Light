@@ -66,9 +66,9 @@ public class NinjaControllerScript : MonoBehaviour {
 				GetComponent<Rigidbody2D> ().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);
 			}
 
-			if (move > 0 && !facingRight) {
+			if ((move > 0 && !facingRight) || (isMovingHorizontalPhoton && !facingRight)) {
 				Flip ();
-			} else if (move < 0 && facingRight)
+			} else if ((move < 0 && facingRight) || (isMovingHorizontalPhoton && facingRight))
 			{
 				Flip ();
 			}
@@ -106,7 +106,7 @@ public class NinjaControllerScript : MonoBehaviour {
 			{
 
 				if (grounded && Input.GetKeyDown (KeyCode.W) && isControllable) {
-					anim.SetBool ("Ground", false);
+					//anim.SetBool ("Ground", false);
 					isJumping = true;
 					GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
 					
@@ -114,7 +114,6 @@ public class NinjaControllerScript : MonoBehaviour {
 
 				if (Input.GetKeyDown (KeyCode.Space) && isControllable) {
 					//anim.SetTrigger ("Attack");
-					Debug.Log("Attack ordered");
 					isSwordSwing = true;
 					if (attack && !hit) {
 						hit = true;
@@ -134,19 +133,12 @@ public class NinjaControllerScript : MonoBehaviour {
 
 	public void swingSword()
 	{
-		Debug.Log ("Made it to sword method");
-		//if (isSwordSwing) {
-			Debug.Log("Swinging Sword");
-			anim.SetTrigger ("Attack");
-			//isSwordSwing = false;
-		//
+		anim.SetTrigger ("Attack");
+			
 	}
 
 	public void notGrounded()
 	{
-		if (isJumping) {
-			anim.SetBool ("Ground", false);
-			//isJumping = false;
-		}
+		anim.SetBool ("Ground", false);
 	}
 }

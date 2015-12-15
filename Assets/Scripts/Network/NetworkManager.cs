@@ -67,10 +67,20 @@ public class NetworkManager : MonoBehaviour {
 			hit2 = stats2.hit;
 			if(stats1.isSwordSwing)
 			{
-				Debug.Log("Manager recieved order");
 				scenePhotonView.RPC("swordAnimation", PhotonTargets.All, 1);
 			}
-			if(stats2.isSwordSwing) scenePhotonView.RPC("swordAnimation", PhotonTargets.All, 2);
+			if(stats2.isSwordSwing)
+			{
+				scenePhotonView.RPC("swordAnimation", PhotonTargets.All, 2);
+			}
+			if(stats1.isJumping)
+			{
+				scenePhotonView.RPC("notOnGroundAnimation", PhotonTargets.All, 1);
+			}
+			if(stats2.isJumping)
+			{
+				scenePhotonView.RPC("notOnGroundAnimation", PhotonTargets.All, 2);
+			}
 		}
 		if (hit1) 
 		{
@@ -279,11 +289,21 @@ public class NetworkManager : MonoBehaviour {
 	public void swordAnimation(int playerID)
 	{
 		if (playerID == 1) {
-			Debug.Log("In RPC");
 			stats1.swingSword();
 			stats1.isSwordSwing = false;
 		} else if (playerID == 2) {
 			stats2.swingSword();
+		}
+	}
+
+	[PunRPC]
+	public void notOnGroundAnimation(int playerID)
+	{
+		if (playerID == 1) {
+			stats1.notGrounded();
+			stats1.isSwordSwing = false;
+		} else if (playerID == 2) {
+			stats2.notGrounded();
 		}
 	}
 
