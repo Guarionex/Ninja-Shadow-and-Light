@@ -10,7 +10,7 @@ public class NetworkManager : MonoBehaviour {
 	public Transform blackSpawnPoint;
 	public Transform whiteSpawnPoint;
 	private static PhotonView scenePhotonView;
-	public static int playerWhoIsIt = 0;
+	//public static int playerWhoIsIt = 0;
 
 	public Transform player1;
 	public Transform player2;
@@ -191,22 +191,22 @@ public class NetworkManager : MonoBehaviour {
 		
 		if(PhotonNetwork.isMasterClient)
 		{
-			TagPlayer(playerWhoIsIt);
+			//TagPlayer(playerWhoIsIt);
 		}
 	}
 	
-	public static void TagPlayer(int playerID)
+	/*public static void TagPlayer(int playerID)
 	{
 		Debug.Log("Tag Player: "+ playerID);
 		scenePhotonView.RPC("TaggedPlayer", PhotonTargets.All, playerID);
-	}
+	}*/
 
-	[PunRPC]
+	/*[PunRPC]
 	public void TaggedPlayer(int playerID)
 	{
 		playerWhoIsIt = playerID;
 		Debug.Log("TaggedPlayer: " + playerID);
-	}
+	}*/
 
 	public void OnPhotonPlayerDisconnected(PhotonPlayer player)
 	{
@@ -214,11 +214,11 @@ public class NetworkManager : MonoBehaviour {
 		
 		if (PhotonNetwork.isMasterClient)
 		{
-			if (player.ID == playerWhoIsIt)
+			/*if (player.ID == playerWhoIsIt)
 			{
 				// if the player who left was "it", the "master" is the new "it"
 				TagPlayer(PhotonNetwork.player.ID);
-			}
+			}*/
 		}
 	}
 
