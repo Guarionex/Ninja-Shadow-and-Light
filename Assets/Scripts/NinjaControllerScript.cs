@@ -56,7 +56,7 @@ public class NinjaControllerScript : MonoBehaviour {
 				move = Input.GetAxis ("Horizontal");
 			}
 			anim.SetFloat ("Speed", Mathf.Abs (move));
-			if (lifes > 0 && isControllable) 
+			if (lifes > 0) 
 			{
 				GetComponent<Rigidbody2D> ().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);
 			}
