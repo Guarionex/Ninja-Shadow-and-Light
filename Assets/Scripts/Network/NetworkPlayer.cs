@@ -10,8 +10,6 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 	float lerpSmoothing = 10f;
 	NinjaControllerScript controller;
 	bool moving = false;
-	bool attacking = false;
-	bool jumping = false;
 
 	// Use this for initialization
 	void Start () {
@@ -37,16 +35,14 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
 			stream.SendNext(controller.isMovingHorizontal);
-			stream.SendNext(controller.isSwordSwing);
-			stream.SendNext(controller.isJumping);
+
 		}
 		else if(controller !=null)
 		{
 			position = (Vector3)stream.ReceiveNext();
 			rotation = (Quaternion)stream.ReceiveNext();
 			moving = (bool) stream.ReceiveNext();
-			attacking = (bool) stream.ReceiveNext();
-			jumping = (bool) stream.ReceiveNext();
+
 		}
 	}
 
@@ -57,15 +53,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing); 
 			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lerpSmoothing);
 			controller.isMovingHorizontalPhoton = moving;
-			if(attacking)
-			{
-				Debug.Log("received an attack order");
-				controller.swingSword();
-			}
-			if(jumping) 
-			{
-				controller.notGrounded();
-			}
+
 			yield return null;
 		}
 	}

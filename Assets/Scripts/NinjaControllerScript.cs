@@ -113,7 +113,8 @@ public class NinjaControllerScript : MonoBehaviour {
 				}
 
 				if (Input.GetKeyDown (KeyCode.Space) && isControllable) {
-					anim.SetTrigger ("Attack");
+					//anim.SetTrigger ("Attack");
+					Debug.Log("Attack ordered");
 					isSwordSwing = true;
 					if (attack && !hit) {
 						hit = true;

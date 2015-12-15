@@ -63,9 +63,14 @@ public class NetworkManager : MonoBehaviour {
 
 		if(player1 != null && player2 != null)
 		{
-
 			hit1 = stats1.hit;
 			hit2 = stats2.hit;
+			if(stats1.isSwordSwing)
+			{
+				Debug.Log("Manager recieved order");
+				scenePhotonView.RPC("swordAnimation", PhotonTargets.All, 1);
+			}
+			if(stats2.isSwordSwing) scenePhotonView.RPC("swordAnimation", PhotonTargets.All, 2);
 		}
 		if (hit1) 
 		{
@@ -268,6 +273,15 @@ public class NetworkManager : MonoBehaviour {
 			backgroundInverter.flip = true;
 			if(player1.position.x > player2.position.x) stats1.hitDirection = true;
 			else if(player1.position.x < player2.position.x) stats1.hitDirection = false;
+		}
+	}
+	[PunRPC]
+	public void swordAnimation(int playerID)
+	{
+		if (playerID == 1) {
+			stats1.swingSword();
+		} else if (playerID == 2) {
+			stats2.swingSword();
 		}
 	}
 
