@@ -45,7 +45,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 
 	IEnumerator Alive()
 	{
-		while(isAlive)
+		while(isAlive && controller != null)
 		{
 			transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * lerpSmoothing); 
 			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lerpSmoothing);
