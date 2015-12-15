@@ -204,7 +204,7 @@ public class NetworkManager : MonoBehaviour {
 			//GameObject whitenNinja = GameObject.Find("White Ninja(Clone)");
 			//player2 = whitenNinja.transform;
 			//stats2 = player2.GetComponent<NinjaControllerScript>();
-			StartCoroutine("findSeconPlayer");
+			StartCoroutine("findSecondPlayer");
 		}
 
 		if(PhotonNetwork.isMasterClient)
