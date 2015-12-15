@@ -293,6 +293,7 @@ public class NetworkManager : MonoBehaviour {
 			stats1.isSwordSwing = false;
 		} else if (playerID == 2) {
 			stats2.swingSword();
+			stats2.isSwordSwing = false;
 		}
 	}
 
@@ -301,9 +302,10 @@ public class NetworkManager : MonoBehaviour {
 	{
 		if (playerID == 1) {
 			stats1.notGrounded();
-			stats1.isSwordSwing = false;
+			stats1.isJumping = false;
 		} else if (playerID == 2) {
 			stats2.notGrounded();
+			stats2.isJumping = false;
 		}
 	}
 
