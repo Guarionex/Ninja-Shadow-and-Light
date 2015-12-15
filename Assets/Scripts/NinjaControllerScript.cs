@@ -92,16 +92,7 @@ public class NinjaControllerScript : MonoBehaviour {
 			{
 				anim.SetTrigger("Death");
 			}
-			if(isSwordSwing)
-			{
-				anim.SetTrigger ("Attack");
-				isSwordSwing = false;
-			}
-			if(isJumping)
-			{
-				anim.SetBool ("Ground", false);
-				isJumping = false;
-			}
+
 		}
 	}
 
@@ -138,5 +129,17 @@ public class NinjaControllerScript : MonoBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+	}
+
+	public void swingSword()
+	{
+		anim.SetTrigger ("Attack");
+		isSwordSwing = false;
+	}
+
+	public void notGrounded()
+	{
+		anim.SetBool ("Ground", false);
+		isJumping = false;
 	}
 }
