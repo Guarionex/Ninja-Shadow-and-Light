@@ -9,7 +9,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 	Quaternion rotation;
 	float lerpSmoothing = 10f;
 	NinjaControllerScript controller;
-	float move;
+	float move = 0f;
 
 	// Use this for initialization
 	void Start () {
