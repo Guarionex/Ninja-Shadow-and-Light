@@ -94,7 +94,7 @@ public class NetworkManager : MonoBehaviour {
 		{
 			pauseWindowRect = GUI.Window(0, pauseWindowRect, PauseWindow, "Pause Menu");
 		}
-		if(player1 != null)
+		if(player1 != null && player2 != null)
 		{
 			if(stats1.lifes <= 0 || stats2.lifes <= 0)
 			{
@@ -176,12 +176,12 @@ public class NetworkManager : MonoBehaviour {
 		}
 
 
-		if (PhotonNetwork.playerList.Length == 1)
+		/*if (PhotonNetwork.playerList.Length == 1)
 		{
 			playerWhoIsIt = PhotonNetwork.player.ID;
 		}
 		
-		Debug.Log("playerWhoIsIt: " + playerWhoIsIt);
+		Debug.Log("playerWhoIsIt: " + playerWhoIsIt);*/
 
 	}
 
